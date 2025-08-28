@@ -1,725 +1,207 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="logo.png" type="image/png">
-    <title>MoKhoaTriThuc - Khóa học qua link drive</title>
-    <meta name="description" content="khóa học online, khóa học drive,khóa học drive XPS 2K8, ôn thi THPT QG học trực tuyến, chia sẻ khóa học, khoahocvip, toán, lý, hóa, tiếng anh, ielts, toeic, đgnl, dgtd, tài liệu học tập" />
-    <meta name="keywords" content="khóa học online, khóa học drive,khóa học drive XPS 2K8, ôn thi THPT QG học trực tuyến, chia sẻ khóa học, khoahocvip, toán, lý, hóa, tiếng anh, ielts, toeic, đgnl, dgtd, tài liệu học tập" />
-    
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Sheet Học Tập - Khoahocvip.io.vn</title>
+  <meta name="description" content="Sheet học tập,khóa xps 2k8 nơi học tập chính của học viên hệ thống khoahocvip.io.vn. Xem tên những thầy cô bạn được học.">
+  <link rel="icon" href="iogo.png" type="image/png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://khoahocvip.io.vn/sheet">
+  <meta property="og:title" content="Sheet Học Tập - Khoahocvip.io.vn">
+  <meta property="og:description" content="Full combo luyện thi THPT XPS 2K8, IELTS, TOEIC, và nhiều kỹ năng khác. Đăng ký một lần, học trọn đời!">
+  <meta property="og:image" content="iogo.png">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://khoahocvip.io.vn/sheet">
+  <meta property="twitter:title" content="Bảng Giá Khóa Học Siêu Rẻ 2025 - Khoahocvip.io.vn">
+  <meta property="twitter:description" content="Full combo luyện thi THPT XPS 2K8, IELTS, TOEIC, và nhiều kỹ năng khác. Đăng ký một lần, học trọn đời!">
+  <meta property="twitter:image" content="iogo.png">
 
-    <style>
-        :root {
-            --bg-deep-space: #0D0E17;
-            --bg-station: #1A1C2A;
-            --border-color: #363A52;
-            --text-primary: #E0E1EC;
-            --text-secondary: #8B8EA3;
-            --accent-cyan: #00E5FF;
-            --accent-magenta: #FF00E4;
-            --accent-glow: 0 0 5px var(--accent-cyan), 0 0 10px var(--accent-cyan), 0 0 15px var(--accent-cyan);
-            --border-radius: 8px;
-            --transition-speed: 0.3s;
-            /* Tăng chiều cao header để chứa thanh trượt */
-            --header-height-mobile: 110px;  
-        }
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <style>
+    :root{ --nav-h: 48px; } /* thanh top mỏng hơn */
+    html, body{ height:100%; margin:0; padding:0; overflow:hidden; background:#f5f7fb;}
+    body{ font-family:'Be Vietnam Pro',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; padding-top:var(--nav-h); box-sizing:border-box; }
 
-        html {
-            scroll-behavior: smooth;
-        }
+    /* khung chính */
+    #main-content{ display:flex; flex-direction:column; height:100%; gap:.75rem; }
+    #sheet-wrap{
+      position:relative; flex:1 1 auto; min-height:0; overflow:hidden;
+      border-radius:14px; background:#fff;
+      border:1px solid #e8ebf0;
+      box-shadow:0 10px 20px -12px rgba(0,0,0,.15), 0 4px 8px -8px rgba(0,0,0,.08);
+    }
+    #sheet-iframe{ width:100%; height:100%; border:0; transform-origin: top left; }
 
-        body {
-            font-family: 'Space Grotesk', sans-serif;
-            background-color: var(--bg-deep-space);
-            color: var(--text-primary);
-            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.1) 1px, transparent 0);
-            background-size: 25px 25px;
-        }
+    /* overlay loading */
+    #loading{
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(180deg, rgba(248,250,253,.9), rgba(248,250,253,.6));
+      backdrop-filter:saturate(120%) blur(2px);
+      z-index:40;
+    }
+    .spinner{
+      width:34px; height:34px; border-radius:999px; border:3px solid #dbe3f0; border-top-color:#2563eb;
+      animation:spin .8s linear infinite;
+    }
+    html, body {
+  /* Cho phép kéo ngang/dọc, KHÔNG cho pinch-zoom */
+      touch-action: pan-x pan-y;
+    }
 
-        /* === LAYOUT CHÍNH === */
-        .container {
-            display: flex;
-            width: 100%;
-        }
+    @keyframes spin{ to{ transform:rotate(360deg);} }
 
-        /* === BẢNG ĐIỀU KHIỂN BÊN TRÁI === */
-        #control-panel {
-            width: 280px;
-            background-color: var(--bg-station);
-            border-right: 1px solid var(--border-color);
-            padding: 25px;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            overflow-y: auto;
-            transition: transform var(--transition-speed) ease;
-            z-index: 2000;
-        }
+    /* nav bóng nhẹ */
+    .nav-shadow{ box-shadow:0 6px 18px -12px rgba(0,0,0,.25), 0 2px 6px -4px rgba(0,0,0,.08); }
 
-        .panel-header {
-            text-align: center;
-            padding-bottom: 15px;
-        }
-        .panel-header h1 {
-            color: var(--accent-cyan);
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-shadow: var(--accent-glow);
-            letter-spacing: 2px;
-        }
-        .panel-header p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
+    /* Bong bóng zoom nằm dưới cụm nút */
+    .zoom-bubble{
+      position:absolute; top:110%; right:0; background:rgba(17,24,39,.92); color:#fff;
+      padding:6px 10px; border-radius:10px; font-size:13px; line-height:1;
+      box-shadow:0 10px 24px rgba(0,0,0,.25); z-index:60; white-space:nowrap;
+    }
+    .zoom-bubble::after{
+      content:""; position:absolute; top:-6px; right:14px; width:12px; height:12px;
+      background:rgba(17,24,39,.92); transform:rotate(45deg);
+    }
 
-        .control-section {
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
-        }
-        .control-section h3 {
-            margin-bottom: 15px;
-            color: var(--text-primary);
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .control-section h3 .fa-solid {
-            color: var(--accent-magenta);
-        }
-        
-        /* Tìm kiếm */
-        .search-box {
-            position: relative;
-        }
-        .search-box input {
-            width: 100%;
-            background-color: var(--bg-deep-space);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 10px 15px 10px 40px;
-            color: var(--text-primary);
-            font-family: 'Space Grotesk', sans-serif;
-            transition: border-color var(--transition-speed);
-        }
-        .search-box input:focus {
-            outline: none;
-            border-color: var(--accent-cyan);
-        }
-        .search-box .fa-search {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
-        
-        /* Lọc giá và danh mục */
-        .filter-list, .category-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .filter-list li button, .category-list li button {
-            width: 100%;
-            text-align: left;
-            padding: 10px 15px;
-            background: none;
-            border: 1px solid transparent;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all var(--transition-speed) ease;
-            border-radius: var(--border-radius);
-            font-size: 1rem;
-            font-family: 'Space Grotesk', sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .filter-list li button:hover, .category-list li button:hover {
-            background-color: var(--bg-deep-space);
-            color: var(--text-primary);
-        }
-        .filter-list li button.active, .category-list li button.active, .ticker-category-btn.active {
-            background-color: var(--accent-cyan);
-            color: var(--bg-deep-space);
-            font-weight: 700;
-            border-color: var(--accent-cyan);
-            box-shadow: var(--accent-glow);
-        }
-        .category-list .fa-solid {
-            width: 20px;
-            text-align: center;
-        }
-
-        /* Footer trong Panel */
-        .panel-footer {
-            margin-top: auto;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-        }
-        .panel-footer a {
-            color: var(--accent-cyan);
-            text-decoration: none;
-        }
-
-        /* === HEADER CHO MOBILE === */
-        #mobile-header {
-            display: none; /* Ẩn trên desktop */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: var(--header-height-mobile);
-            background-color: var(--bg-station);
-            z-index: 1500;
-            flex-direction: column;
-        }
-        .header-top-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            padding: 10px 15px;
-            height: 60px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        #mobile-header .header-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent-cyan);
-            text-shadow: var(--accent-glow);
-        }
-        #mobile-header .search-box {
-            flex-grow: 1;
-        }
-        #menu-toggle {
-            background: none;
-            color: var(--accent-cyan);
-            border: 1px solid var(--accent-cyan);
-            width: 40px;
-            height: 40px;
-            font-size: 1.2rem;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        
-        /* === THANH TRƯỢT DANH MỤC === */
-        #category-ticker-container {
-            width: 100%;
-            overflow: hidden;
-            background: var(--bg-station);
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-        /* Hiệu ứng mờ dần 2 bên */
-        #category-ticker-container::before,
-        #category-ticker-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 50px;
-            z-index: 2;
-        }
-        #category-ticker-container::before {
-            left: 0;
-            background: linear-gradient(to right, var(--bg-station), transparent);
-        }
-        #category-ticker-container::after {
-            right: 0;
-            background: linear-gradient(to left, var(--bg-station), transparent);
-        }
-        
-        #category-ticker {
-            display: flex;
-            white-space: nowrap;
-            animation: scroll-left 45s linear infinite;
-        }
-        #category-ticker-container:hover #category-ticker {
-            animation-play-state: paused;
-        }
-
-        .ticker-category-btn {
-            padding: 8px 15px;
-            margin: 0 5px;
-            border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            border-radius: var(--border-radius);
-            background: var(--bg-deep-space);
-            cursor: pointer;
-            transition: all var(--transition-speed);
-            font-size: 0.9rem;
-        }
-        .ticker-category-btn:hover {
-            color: var(--text-primary);
-            border-color: var(--accent-magenta);
-        }
-
-        @keyframes scroll-left {
-            from { transform: translateX(0%); }
-            to { transform: translateX(-50%); }
-        }
-        
-        /* === KHU VỰC HIỂN THỊ CHÍNH === */
-        #main-content {
-            margin-left: 280px;
-            padding: 40px;
-            width: calc(100% - 280px);
-        }
-        
-        .page-header {
-            margin-bottom: 30px;
-        }
-        #page-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-        #page-title span {
-            color: var(--accent-cyan);
-        }
-
-        #courses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        .loading-message, .no-courses-message, .error-message {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 50px;
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            border: 2px dashed var(--border-color);
-            border-radius: var(--border-radius);
-        }
-
-        .error-message {
-            color: var(--accent-magenta);
-            border-color: var(--accent-magenta);
-        }
-
-        /* === THẺ KHÓA HỌC (COURSE CARD) === */
-        .course-card{background-color:var(--bg-station);border:1px solid var(--border-color);border-radius:var(--border-radius);overflow:hidden;display:flex;flex-direction:column;transition:transform var(--transition-speed),box-shadow var(--transition-speed);position:relative}.course-card:hover{transform:translateY(-10px);box-shadow:0 0 20px rgba(0,229,255,.2);border-color:var(--accent-cyan)}.card-image-container{height:180px;position:relative}.card-image-container img{width:100%;height:100%;object-fit:cover;opacity:.8;transition:opacity var(--transition-speed)}.course-card:hover .card-image-container img{opacity:1}.card-info{padding:20px;flex-grow:1;display:flex;flex-direction:column}.card-info h3{font-size:1.3rem;margin-bottom:15px;line-height:1.4;color:var(--text-primary);min-height:55px}.card-meta{display:flex;justify-content:space-between;font-size:.9rem;color:var(--text-secondary);margin-bottom:15px}.card-meta .course-rating .fa-star{color:#ffc107}.card-pricing{margin-bottom:20px}.current-price{font-size:2rem;font-weight:700;color:var(--accent-cyan)}.original-price{font-size:1rem;color:var(--text-secondary);text-decoration:line-through;margin-left:10px}.free-price{font-size:2rem;font-weight:700;color:var(--accent-magenta)}.card-actions{margin-top:auto;display:flex;gap:10px}.card-actions .action-btn{flex-grow:1;padding:12px;border:1px solid var(--accent-cyan);background:transparent;color:var(--accent-cyan);border-radius:var(--border-radius);font-weight:700;text-decoration:none;text-align:center;cursor:pointer;transition:all var(--transition-speed)}.card-actions .action-btn:hover{background-color:var(--accent-cyan);color:var(--bg-deep-space);box-shadow:var(--accent-glow)}.card-actions .action-btn.buy-btn{border-color:var(--accent-magenta);color:var(--accent-magenta)}.card-actions .action-btn.buy-btn:hover{background-color:var(--accent-magenta);color:var(--bg-deep-space);box-shadow:0 0 15px var(--accent-magenta)}
-
-        /* === MODAL === */
-        .modal{display:none;position:fixed;z-index:3000;left:0;top:0;width:100%;height:100%;background-color:rgba(13,14,23,.8);backdrop-filter:blur(5px);animation:fadeIn var(--transition-speed) ease}.modal-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--bg-station);border:1px solid var(--accent-cyan);box-shadow:0 0 30px rgba(0,229,255,.25);border-radius:var(--border-radius);width:90%;max-width:700px;padding:30px 40px;animation:slideIn var(--transition-speed) ease}.close-button{position:absolute;top:15px;right:20px;color:var(--text-secondary);font-size:2rem;cursor:pointer;transition:color var(--transition-speed)}.close-button:hover{color:var(--accent-cyan)}#modal-title{font-size:2rem;color:var(--accent-cyan);margin-bottom:20px}#modal-description{line-height:1.7;color:var(--text-primary);max-height:40vh;overflow-y:auto;padding-right:15px;margin-bottom:30px}#modal-description::-webkit-scrollbar{width:4px}#modal-description::-webkit-scrollbar-thumb{background:var(--accent-cyan);border-radius:2px}
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideIn { from { transform: translate(-50%, -45%); opacity: 0; } to { transform: translate(-50%, -50%); opacity: 1; } }
-        
-        /* === RESPONSIVE === */
-        @media (max-width: 1024px) {
-            #control-panel {
-                transform: translateX(-100%);
-            }
-            #control-panel.open {
-                transform: translateX(0);
-                box-shadow: 10px 0 20px rgba(0,0,0,0.5);
-            }
-             /* Ẩn search box trong panel trên mobile */
-            #control-panel .search-box {
-                display: none;
-            }
-            #main-content {
-                margin-left: 0;
-                width: 100%;
-                padding: 20px;
-                /* Đẩy nội dung xuống dưới header */
-                padding-top: calc(var(--header-height-mobile) + 20px); 
-            }
-            #mobile-header {
-                display: flex; /* Hiển thị header mobile */
-            }
-             #page-title { font-size: 2rem; }
-        }
-        @media (max-width: 480px) {
-             #courses-grid { grid-template-columns: 1fr; }
-             .panel-header h1 { font-size: 1.5rem; }
-             #control-panel { width: 250px; }
-             .modal-content {
-                width: 95%;
-                padding: 20px 25px;
-             }
-             #modal-title { font-size: 1.5rem; }
-        }
-
-    </style>
+    /* Mobile tối ưu */
+    @media (max-width: 768px){
+      :root{ --nav-h: 46px; }
+      #sheet-iframe{ transform:scale(.45); width:222.22%; height:222.22%; }
+      .zoom-btn{ padding:4px 9px !important; font-size:12px !important; }
+      .buy-btn{ padding:6px 10px !important; font-size:13px !important; }
+    }
+  </style>
 </head>
-<body>
-    
-    <header id="mobile-header">
-        <div class="header-top-row">
-            <button id="menu-toggle"><i class="fa-solid fa-bars"></i></button>
-            <div class="header-logo">MoKhoaTriThuc</div>
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="search" id="mobile-search-input" placeholder="Tìm kiếm...">
-            </div>
+<body class="text-gray-800 selection:bg-blue-600/10 selection:text-blue-800">
+
+  <!-- NAV -->
+  <nav class="bg-white/90 backdrop-blur-md fixed top-0 left-0 right-0 z-50 nav-shadow" style="height:var(--nav-h);">
+    <div class="mx-auto max-w-6xl h-full px-3 sm:px-5">
+      <div class="h-full flex items-center justify-between">
+        <!-- Logo -->
+        <a class="flex items-center gap-2" href="/" title="Trang chủ">
+          <img class="h-8 w-auto" src="iogo.png" alt="Khoahocvip">
+          <span class="hidden sm:block text-sm font-semibold text-gray-700">KHOAHOCVIP</span>
+        </a>
+
+        <!-- Controls -->
+        <div class="flex items-center gap-2 md:gap-3">
+          <!-- Zoom group -->
+          <div id="zoom-group" class="relative flex items-center gap-1">
+            <button id="zoom-out" class="zoom-btn px-3 py-1.5 rounded-lg bg-blue border border-gray-200 shadow-sm hover:border-gray-300 hover:bg-gray-50 active:scale-[.98] transition text-gray-700" aria-label="Thu nhỏ (−)">−</button>
+            <button id="zoom-in"  class="zoom-btn px-3 py-1.5 rounded-lg bg-blue-600 text-white shadow hover:bg-blue-700 active:scale-[.98] transition" aria-label="Phóng to (+)">+</button>
+            <button id="zoom-reset" class="zoom-btn px-3 py-1.5 rounded-lg bg-gray-700 text-white shadow hover:bg-gray-800 active:scale-[.98] transition" aria-label="Về 100%">Reset</button>
+            <!-- Bong bóng -->
+            <div id="zoom-hint" class="zoom-bubble hidden">THU NHỎ - PHÓNG TO Ở ĐÂY !</div>
+          </div>
+
+          <!-- CTA mua -->
+          <a href="https://zalo.me/0333041525"
+             class="buy-btn inline-flex items-center gap-2 rounded-xl bg-blue-600 text-white font-semibold py-2 px-3 md:px-4 shadow hover:shadow-md hover:bg-blue-700 active:scale-[.98] transition">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span class="hidden sm:inline">Mua khóa học</span><span class="sm:hidden">Mua</span>
+          </a>
         </div>
-        <div id="category-ticker-container">
-            <div id="category-ticker">
-                </div>
-        </div>
-    </header>
-
-    <div class="container">
-        <aside id="control-panel">
-            <div class="panel-header">
-                <h1>MoKhoaTriThuc</h1>
-                <p>Khóa Học Drive</p>
-            </div>
-
-            <div class="control-section">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="search" id="search-input" placeholder="Tìm kiếm hành tinh...">
-                </div>
-            </div>
-
-            <div class="control-section">
-                <h3><i class="fa-solid fa-filter"></i> Bộ Lọc</h3>
-                <ul id="price-filters" class="filter-list">
-                    <li><button class="active" data-value="all">Tất cả</button></li>
-                    <li><button data-value="paid">Có phí</button></li>
-                    <li><button data-value="free">Miễn phí</button></li>
-                </ul>
-            </div>
-
-            <div class="control-section">
-                <h3><i class="fa-solid fa-star-of-life"></i> Các Khóa Học</h3>
-                <ul id="category-list" class="category-list">
-                     </ul>
-            </div>
-
-            <div class="panel-footer">
-                <p>&copy; 2025 MoKhoaTriThuc</p>
-                <p>Admin điều hành: <a href="#" target="_blank">Hoàng Nhật</a></p>
-            </div>
-        </aside>
-
-        <main id="main-content">
-            <header class="page-header">
-                <h2 id="page-title">Khám phá: <span>Tất cả</span></h2>
-            </header>
-            <div id="courses-grid">
-                </div>
-        </main>
+      </div>
     </div>
+  </nav>
 
-    <div id="course-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2 id="modal-title"></h2>
-            <div id="modal-description"></div>
-            <a id="modal-buy-link" class="action-btn" href="#" target="_blank" rel="noopener noreferrer"></a>
+  <!-- MAIN -->
+  <main id="main-content" class="px-3 sm:px-5 pb-3 pt-0">
+    <div id="sheet-wrap">
+      <!-- overlay loading -->
+      <div id="loading">
+        <div class="flex flex-col items-center gap-3 text-gray-600">
+          <div class="spinner"></div>
+          <p class="text-sm">Đang tải trang tính…</p>
         </div>
+      </div>
+
+      <iframe id="sheet-iframe"
+        src="https://docs.google.com/spreadsheets/d/1kwcF_6vDUL80fyvpmSMFedubfFJs5bIum5SvTHmf86Q/edit?usp=sharing"
+        allowfullscreen
+        title="Sheet Học Tập - Khoahocvip.io.vn">
+        Đang tải trang tính của bạn...
+      </iframe>
     </div>
+  </main>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // === THÔNG TIN KẾT NỐI SUPABASE ===
-            const SUPABASE_URL = "https://sdixqzzpggcxrbtaqqtf.supabase.co";
-            const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkaXhxenpwZ2djeHJidGFxcXRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg2MDQ4OTMsImV4cCI6MjA2NDE4MDg5M30.5nP_A5N6Jb2fDDNmRVcLva_znbrQhErt-xcpmm5V6S8";
-            
-            // --- SỬA LỖI: Kiểm tra xem thư viện Supabase đã được tải chưa ---
-            if (!window.supabase) {
-                console.error("Lỗi: Thư viện Supabase chưa được tải.");
-                document.getElementById('courses-grid').innerHTML = `<div class="error-message">Lỗi kết nối. Vui lòng tải lại trang.</div>`;
-                return; // Dừng thực thi nếu thư viện bị lỗi
-            }
-            const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-            
-            // === CẤU HÌNH GIAO DIỆN ===
-            const danhSachKhuVuc = ["Tất cả", "Khóa Combo", "Khóa học miễn phí", "Tài liệu", "Toán", "Lý", "Hóa", "Tiếng Anh", "Sinh", "Văn", "Sử", "Địa", "DGNL (HSA)", "VATC - APT", "DGTD (TSA)", "TOEIC", "IELTS", "Đại học"];
-            const categoryIcons = {'Tất cả':'fa-globe','Toán':'fa-calculator','Lý':'fa-atom','Hóa':'fa-flask','Tiếng Anh':'fa-language','Sinh':'fa-dna','Văn':'fa-pen-nib','Sử':'fa-landmark','Địa':'fa-globe-asia','IELTS':'fa-passport','TOEIC':'fa-file-alt','Đại học':'fa-graduation-cap','DGNL (HSA)':'fa-brain','DGTD (TSA)':'fa-brain','Khóa học miễn phí':'fa-gift','Tài liệu':'fa-folder-open','Khóa Combo':'fa-boxes-stacked'};
-            const zaloLink = "https://zalo.me/0354380468";
+  <script>
+    // ========= Helpers =========
+    const iframe = document.getElementById('sheet-iframe');
+    const loading = document.getElementById('loading');
+    const hint = document.getElementById('zoom-hint');
 
-            // === DOM Elements ===
-            const controlPanel = document.getElementById('control-panel');
-            const menuToggle = document.getElementById('menu-toggle');
-            const searchInput = document.getElementById('search-input');
-            const mobileSearchInput = document.getElementById('mobile-search-input');
-            const priceFilterContainer = document.getElementById('price-filters');
-            const categoryList = document.getElementById('category-list');
-            const categoryTicker = document.getElementById('category-ticker');
-            const pageTitle = document.getElementById('page-title').querySelector('span');
-            const coursesGrid = document.getElementById('courses-grid');
-            const modal = document.getElementById('course-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalDescription = document.getElementById('modal-description');
-            const modalBuyLink = document.getElementById('modal-buy-link');
-            const closeButton = document.querySelector('.close-button');
+    // Ẩn overlay khi iframe load
+    iframe.addEventListener('load', () => {
+      loading.style.display = 'none';
+    });
 
-            // === State Management ===
-            let currentCategory = "Tất cả";
-            let currentSearchTerm = "";
-            let currentPriceFilter = "all";
-            let debounceTimer;
+    // ========= Zoom =========
+    let zoomLevel = Number(localStorage.getItem('sheetZoom') || '1');
+    function applyZoom() {
+      iframe.style.transform = `scale(${zoomLevel})`;
+      iframe.style.width = (100 / zoomLevel) + '%';
+      iframe.style.height = (100 / zoomLevel) + '%';
+      localStorage.setItem('sheetZoom', String(zoomLevel));
+    }
+    function clampZoom(z){ return Math.min(2.0, Math.max(0.2, Math.round(z*10)/10)); }
 
-            // === FUNCTIONS ===
+    document.getElementById('zoom-in').onclick  = () => { zoomLevel = clampZoom(zoomLevel + 0.1); applyZoom(); };
+    document.getElementById('zoom-out').onclick = () => { zoomLevel = clampZoom(zoomLevel - 0.1); applyZoom(); };
+    document.getElementById('zoom-reset').onclick = () => { zoomLevel = 0.8; applyZoom(); };
 
-            function renderCategories() {
-                categoryList.innerHTML = '';
-                categoryTicker.innerHTML = '';
+    // Phím tắt: + / - / 0
+    window.addEventListener('keydown', (e)=>{
+      if (['INPUT','TEXTAREA'].includes((e.target.tagName||'').toUpperCase())) return;
+      if (e.key === '+'){ e.preventDefault(); zoomLevel = clampZoom(zoomLevel + 0.1); applyZoom(); }
+      if (e.key === '-'){ e.preventDefault(); zoomLevel = clampZoom(zoomLevel - 0.1); applyZoom(); }
+      if (e.key === '0'){ e.preventDefault(); zoomLevel = 1; applyZoom(); }
+    });
 
-                const tickerContent = [...danhSachKhuVuc, ...danhSachKhuVuc];
-                let tickerHTML = '';
-                tickerContent.forEach(cat => {
-                    tickerHTML += `<button class="ticker-category-btn ${cat === 'Tất cả' ? 'active' : ''}" data-value="${cat}">${cat}</button>`;
-                });
-                categoryTicker.innerHTML = tickerHTML;
-                
-                let sidebarHTML = '';
-                danhSachKhuVuc.forEach(cat => {
-                    const iconClass = categoryIcons[cat] || 'fa-question-circle';
-                    sidebarHTML += `
-                        <li>
-                            <button data-value="${cat}" class="${cat === 'Tất cả' ? 'active' : ''}">
-                                <i class="fa-solid ${iconClass}"></i>
-                                <span>${cat}</span>
-                            </button>
-                        </li>`;
-                });
-                categoryList.innerHTML = sidebarHTML;
-            }
-            
-            function updateActiveCategory(categoryValue) {
-                document.querySelectorAll('#category-list button, #category-ticker button').forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.value === categoryValue);
-                });
-            }
+    // Áp dụng zoom ban đầu
+    applyZoom();
 
-            function handleCategorySelect(categoryValue) {
-                currentCategory = categoryValue;
-                updateActiveCategory(categoryValue);
-                
-                currentSearchTerm = "";
-                searchInput.value = "";
-                mobileSearchInput.value = "";
-                pageTitle.textContent = currentCategory;
+    // ========= Bong bóng Zoom: 3 lần (5s bật / 5s tắt) =========
+    let shownCount = 0;
+    function showHintOnce(){
+      if (shownCount >= 3) return;
+      hint.classList.remove('hidden');
+      setTimeout(()=>{
+        hint.classList.add('hidden');
+        shownCount++;
+        if (shownCount < 3) setTimeout(showHintOnce, 5000);
+      }, 5000);
+    }
+    window.addEventListener('load', ()=> setTimeout(showHintOnce, 350));
+  </script>
+  <script>
+    // Chặn gesture của Safari iOS (non-standard nhưng cần thiết)
+    window.addEventListener('gesturestart',  e => e.preventDefault(), {passive:false});
+    window.addEventListener('gesturechange', e => e.preventDefault(), {passive:false});
+    window.addEventListener('gestureend',    e => e.preventDefault(), {passive:false});
+  
+    // Phòng trường hợp một số trình duyệt vẫn cố pinch -> chặn khi có 2 ngón
+    document.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches.length > 1) e.preventDefault();
+    }, {passive:false});
+  </script>
 
-                displayCourses();
-
-                if (window.innerWidth <= 1024) {
-                    controlPanel.classList.remove('open');
-                }
-            }
-
-            // --- CẢI TIẾN: Định dạng lại hàm cho dễ đọc ---
-            function openModal(course) {
-                modalTitle.textContent = course.ten;
-                modalDescription.innerHTML = course.mo_ta || "Không có mô tả chi tiết cho khóa học này.";
-
-                const isFreeCourse = course.loai === "Khóa học miễn phí" || course.loai === "Tài liệu" || course.gia === 0;
-                
-                if (isFreeCourse) {
-                    modalBuyLink.href = course.linkdrive || "#";
-                    modalBuyLink.textContent = "Học Ngay";
-                    modalBuyLink.className = "action-btn";
-                } else {
-                    modalBuyLink.href = zaloLink;
-                    modalBuyLink.textContent = "Liên Hệ Mua";
-                    modalBuyLink.className = "action-btn buy-btn";
-                }
-                modal.style.display = "block";
-            }
-
-            function closeModal() {
-                modal.style.display = "none";
-            }
-            
-            async function displayCourses() {
-                coursesGrid.innerHTML = `<div class="loading-message">Đang dò tìm tín hiệu...</div>`;
-
-                // --- CẢI TIẾN: Bọc logic trong try...catch để xử lý lỗi ---
-                try {
-                    let query = supabase.from("khoahoc").select("*, mo_ta");
-
-                    if (currentCategory && currentCategory !== "Tất cả") {
-                        query = query.eq("loai", currentCategory);
-                    }
-
-                    if (currentSearchTerm) {
-                        const searchTerm = `%${currentSearchTerm}%`;
-                        query = query.or(`ten.ilike.${searchTerm},mo_ta.ilike.${searchTerm}`);
-                    }
-
-                    if (currentPriceFilter === "free") {
-                        query = query.eq("gia", 0);
-                    } else if (currentPriceFilter === "paid") {
-                        query = query.gt("gia", 0);
-                    }
-
-                    query = query.order("ten", { ascending: true });
-
-                    const { data: courses, error } = await query;
-
-                    if (error) {
-                        // Ném lỗi để khối catch bắt được
-                        throw error;
-                    }
-                    
-                    coursesGrid.innerHTML = ""; // Xóa thông báo loading
-
-                    if (!courses || courses.length === 0) {
-                        coursesGrid.innerHTML = `<div class="no-courses-message">Không tìm thấy hành tinh nào phù hợp trong thiên hà này.</div>`;
-                        return;
-                    }
-                    
-                    courses.forEach(course => {
-                        const card = document.createElement("div");
-                        card.className = "course-card";
-                        
-                        const { gia, gia_goc, loai, linkdrive, ten, hinh, rating } = course;
-                        let priceHTML = '';
-                        if (gia === 0) {
-                            priceHTML = `<div class="free-price">Miễn Phí</div>`;
-                        } else if (gia_goc && gia_goc > gia) {
-                            priceHTML = `
-                                <div class="card-pricing">
-                                    <span class="current-price">${gia.toLocaleString("vi-VN")}đ</span>
-                                    <span class="original-price">${gia_goc.toLocaleString("vi-VN")}đ</span>
-                               </div>`;
-                        } else {
-                            priceHTML = `<div class="card-pricing"><span class="current-price">${gia.toLocaleString("vi-VN")}đ</span></div>`;
-                        }
-
-                        let actionButtonHTML;
-                        const isFreeCourse = loai === "Khóa học miễn phí" || loai === "Tài liệu" || gia === 0;
-                        if (isFreeCourse) {
-                            actionButtonHTML = `<a href="${linkdrive || "#"}" class="action-btn" target="_blank" rel="noopener noreferrer">Học Ngay</a>`;
-                        } else {
-                            actionButtonHTML = `<a href="${zaloLink}" class="action-btn buy-btn" target="_blank" rel="noopener noreferrer">Liên Hệ Mua</a>`;
-                        }
-                        
-                        // --- CẢI TIẾN: Dùng template literals để code sạch hơn ---
-                        card.innerHTML = `
-                            <div class="card-image-container">
-                                <img src="${hinh || "https://via.placeholder.com/400x225?text=No+Signal"}" alt="Ảnh khóa học ${ten}" loading="lazy">
-                            </div>
-                            <div class="card-info">
-                                <h3>${ten}</h3>
-                                <div class="card-meta">
-                                    <span class="course-category">${loai || "Chưa xác định"}</span>
-                                    ${rating > 0 ? `<span class="course-rating">${rating} <i class="fas fa-star"></i></span>` : ""}
-                                </div>
-                                ${priceHTML}
-                                <div class="card-actions">
-                                    <button class="action-btn details-btn">Chi Tiết</button>
-                                    ${actionButtonHTML}
-                                </div>
-                            </div>`;
-                            
-                        card.querySelector(".details-btn").addEventListener("click", () => openModal(course));
-                        coursesGrid.appendChild(card);
-                    });
-
-                } catch (error) {
-                    console.error("Lỗi nghiêm trọng khi tải khóa học:", error);
-                    coursesGrid.innerHTML = `<div class="error-message">Hệ thống có lỗi! Không thể tải dữ liệu từ máy chủ.</div>`;
-                }
-            }
-
-            function handleSearch(event) {
-                clearTimeout(debounceTimer);
-                const searchTerm = event.target.value.trim();
-                
-                // Đồng bộ hóa 2 ô tìm kiếm
-                if (event.target === searchInput) {
-                    mobileSearchInput.value = searchTerm;
-                } else {
-                    searchInput.value = searchTerm;
-                }
-
-                debounceTimer = setTimeout(() => {
-                    currentSearchTerm = searchTerm;
-                    pageTitle.textContent = currentSearchTerm ? `"${currentSearchTerm}"` : currentCategory;
-                    displayCourses();
-                }, 500);
-            }
-
-            // === EVENT LISTENERS ===
-            searchInput.addEventListener('keyup', handleSearch);
-            mobileSearchInput.addEventListener('keyup', handleSearch);
-
-            priceFilterContainer.addEventListener('click', (e) => {
-                if (e.target.tagName === 'BUTTON') {
-                    priceFilterContainer.querySelector('.active').classList.remove('active');
-                    e.target.classList.add('active');
-                    currentPriceFilter = e.target.dataset.value;
-                    displayCourses();
-                }
-            });
-
-            categoryList.addEventListener('click', (e) => {
-                const button = e.target.closest('button');
-                if (button) {
-                    handleCategorySelect(button.dataset.value);
-                }
-            });
-
-            categoryTicker.addEventListener('click', (e) => {
-                const button = e.target.closest('button');
-                if (button) {
-                    handleCategorySelect(button.dataset.value);
-                }
-            });
-
-            closeButton.addEventListener('click', closeModal);
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
-            
-            menuToggle.addEventListener('click', () => {
-                controlPanel.classList.toggle('open');
-            });
-
-            // === INITIALIZATION ===
-            renderCategories();
-            displayCourses();
-        });
-    </script>
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TGKDVJVSHX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-    
-      gtag('config', 'G-TGKDVJVSHX');
-    </script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-T3HC34BE89"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-T3HC34BE89');
+  </script>
 </body>
 </html>
